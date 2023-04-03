@@ -49,8 +49,6 @@ def main():
             heads = 6,
             mlp_dim = 1024,
             outdim= 512,)
-        del model.head
-        model.head = model._build_mlp(3, 512, 1024, 512)
 
         # load from pre-trained, before DistributedDataParallel constructor
         if pretrained:
@@ -111,17 +109,12 @@ def main():
     model1 = ViT3D(
         num_patches=304,
         patch_dim=512,
-        num_classes=4,
         dim=768,
         depth=2,
-        channels=1,
         heads=16,
         mlp_dim=2048,
-        dropout=0.1,
-        emb_dropout=0.1
+        outdim = 512,
     )
-    del model1.head
-    model1.head = model1._build_mlp(3, 768, 1024, 512)
 
     model2 = ViT(
         image_size=304,
